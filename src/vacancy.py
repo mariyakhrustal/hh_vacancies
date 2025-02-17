@@ -18,7 +18,7 @@ class Vacancy:
     def __eq__(self, other: object) -> bool:
         """Сравнение вакансий по всем атрибутам"""
         if not isinstance(other, Vacancy):
-            return NotImplemented
+            raise TypeError("Оба экземпляра должны быть объектами Vacancy")
         return (
             self.name == other.name
             and self.url == other.url
@@ -30,22 +30,14 @@ class Vacancy:
     def __lt__(self, other: "Vacancy") -> bool:
         """Сравнение вакансий по зарплате (меньше)"""
         if not isinstance(other, Vacancy):
-            return False
-        return (
-            self.salary < other.salary
-            if isinstance(self.salary, (int, float)) and isinstance(other.salary, (int, float))
-            else False
-        )
+            raise TypeError("Оба экземпляра должны быть объектами Vacancy")
+        return self.salary < other.salary
 
     def __gt__(self, other: "Vacancy") -> bool:
         """Сравнение вакансий по зарплате (больше)"""
         if not isinstance(other, Vacancy):
-            return False
-        return (
-            self.salary > other.salary
-            if isinstance(self.salary, (int, float)) and isinstance(other.salary, (int, float))
-            else False
-        )
+            raise TypeError("Оба экземпляра должны быть объектами Vacancy")
+        return self.salary > other.salary
 
     def __str__(self) -> str:
         """Строковое представление для экземпляра класса вакансия"""
@@ -90,17 +82,14 @@ class Vacancy:
     @staticmethod
     def vacancy_in_dict(opening: object) -> dict:
         """Метод для преобразования объекта в тип 'словарь'"""
-        try:
-            if isinstance(opening, Vacancy):
-                opening_dict = {
-                    "name": opening.name,
-                    "url": opening.url,
-                    "city": opening.city,
-                    "salary": opening.salary,
-                    "experience": opening.experience,
-                }
-                return opening_dict
-            else:
-                raise TypeError("Объект должен быть экземпляром класса Vacancy")
-        except AttributeError as e:
-            raise ValueError(f"Ошибка при доступе к атрибуту: {e}")
+        if isinstance(opening, Vacancy):
+            opening_dict = {
+                "name": opening.name,
+                "url": opening.url,
+                "city": opening.city,
+                "salary": opening.salary,
+                "experience": opening.experience,
+            }
+            return opening_dict
+        else:
+            raise TypeError("Объект должен быть экземпляром класса Vacancy")
