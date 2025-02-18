@@ -11,6 +11,7 @@ def test_vacancy_init(vacancy_1: Vacancy) -> None:
     assert vacancy_1.salary == 100000
     assert vacancy_1.experience == "2 года"
 
+
 def test_create_vacancy_default_values() -> None:
     """Тест на инициализацию объекта Vacancy со значениями по умолчанию"""
     vacancy = Vacancy(name="Python Developer", url="https://example.com", city="Москва")
@@ -33,14 +34,18 @@ def test_invalid_experience() -> None:
 
 def test_vacancy_str_print(vacancy_1: Vacancy) -> None:
     """Тест на строковое представление для экземпляра класса вакансия"""
-    assert str(vacancy_1) == "Вакансия: 'Python Developer', Ссылка на вакансию: 'https://example.com', \
+    assert (
+        str(vacancy_1)
+        == "Вакансия: 'Python Developer', Ссылка на вакансию: 'https://example.com', \
 Город: 'Москва', Заработная плата: 100000, Опыт: '2 года')"
+    )
 
 
 def test_vacancy_equality(vacancy_1: Vacancy, vacancy_2: Vacancy) -> None:
     """Тест на сравнение вакансий по всем атрибутам"""
-    vacancy = Vacancy(name="Python Developer", url="https://example.com", city="Москва", salary=100000,
-                       experience="2 года")
+    vacancy = Vacancy(
+        name="Python Developer", url="https://example.com", city="Москва", salary=100000, experience="2 года"
+    )
     assert vacancy_1 != vacancy_2
     assert vacancy_1 == vacancy
     with pytest.raises(TypeError):
@@ -78,10 +83,20 @@ def test_vacancy_obj_to_dict(vacancy_2: Vacancy) -> None:
 def test_vacancy_cast_to_object_list(vacancy_1: Vacancy, vacancy_2: Vacancy) -> None:
     """Тест на преобразование списка вакансий в список объектов Vacancy"""
     data = [
-        {"name": "Программист", "url": "http://example.com", "city": "Москва", "salary": 100000,
-         "experience": "2 года"},
-        {"name": "Менеджер", "url": "http://example.com", "city": "Санкт-Петербург", "salary": 80000,
-         "experience": "3 года"}
+        {
+            "name": "Программист",
+            "url": "http://example.com",
+            "city": "Москва",
+            "salary": 100000,
+            "experience": "2 года",
+        },
+        {
+            "name": "Менеджер",
+            "url": "http://example.com",
+            "city": "Санкт-Петербург",
+            "salary": 80000,
+            "experience": "3 года",
+        },
     ]
     vacancies = Vacancy.cast_to_object_list(data)
     assert len(vacancies) == 2
