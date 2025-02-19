@@ -60,13 +60,11 @@ class VacancyManager:
     def add_or_delete_choice(self, choice_number: str) -> None:
         """Метод для выбора пользователя добавить, удалить вакансию или выйти из программы"""
         if choice_number not in ["1", "2"]:
-            print("Выход из программы")
+            print("Программа завершила свою работу!")
             return
-
         base_url = "https://hh.ru/vacancy/"
         vacancy_url = base_url + input("Допишите ссылку на вакансию для дальнейших действий: https://hh.ru/vacancy/")
 
-        # Найти вакансию по URL
         for vacancy in self.vacancies_list:
             if vacancy.url == vacancy_url:
                 if choice_number == "1":

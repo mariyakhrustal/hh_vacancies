@@ -2,6 +2,7 @@ import pytest
 
 from src.json_saver import JSONSaver
 from src.vacancy import Vacancy
+from src.vacancy_manager import VacancyManager
 
 
 @pytest.fixture
@@ -50,3 +51,16 @@ def json_saver(tmpdir) -> JSONSaver:
     file_name = tmpdir.join("test_vacancies.json")
     json_saver = JSONSaver(file_name=str(file_name))
     return json_saver
+
+
+@pytest.fixture
+def setup_vacancies() -> VacancyManager:
+    vacancies = [
+        Vacancy("Junior Developer", "https://hh.ru/vacancy/1", "Moscow", 50000, "нет опыта"),
+        Vacancy("Middle Developer", "https://hh.ru/vacancy/2", "Moscow", 60000, "от 1 года до 3 лет"),
+        Vacancy("Senior Developer", "https://hh.ru/vacancy/3", "Moscow", 70000, "от 3 до 6 лет"),
+        Vacancy("Lead Developer", "https://hh.ru/vacancy/4", "Moscow", 80000, "более 6 лет"),
+    ]
+    manager = VacancyManager()
+    manager.vacancies_list = vacancies
+    return manager
